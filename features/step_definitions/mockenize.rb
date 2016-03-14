@@ -1,9 +1,10 @@
 Given(/^a mock with json$/) do |mock|
-  MockenizeService.createMock(mock)
+  @response = MockenizeService.createMock(mock)
+  expect(@response.code).to eq(201)
 end
 
-When(/^invoke a POST in url "([^"]*)"$/) do |url|
-  @response = MockenizeService.post(url, "")
+When(/^invoke a "([^"]*)" in url "([^"]*)"$/) do |method, url|
+  @response = MockenizeService.load(method, url, "")
 end
 
 Then(/^response status should be (\d+)$/) do |status|
