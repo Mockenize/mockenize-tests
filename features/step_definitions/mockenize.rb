@@ -4,7 +4,9 @@ Given(/^a mock with json$/) do |json|
 end
 
 When(/^invoke a "([^"]*)" in url "([^"]*)"$/) do |method, url|
+  start = Time.now
   @response = MockenizeService.load(method, url, "")
+  @response_time = Time.now - start
 end
 
 Then(/^response status should be (\d+)$/) do |status|
@@ -21,4 +23,12 @@ end
 
 When(/^delete a mock with json$/) do |json|
   @response = MockenizeService.deleteMock(body)
+end
+
+Then(/^response timeout should be (\d+)$/) do |timeout|
+  expect(@response_time).to be >= timeout.to_f
+end
+
+Then(/^response timeout should be between (\d+) and (\d+)$/) do |minTimeout, maxTimeout|
+  expect(@response_time).to be_between(minTimeout.to_f, maxTimeout.to_f).exclusive
 end
