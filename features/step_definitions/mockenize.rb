@@ -22,7 +22,7 @@ Then(/^response header should be contains a key "([^"]*)" and value "([^"]*)"$/)
 end
 
 When(/^delete a mock with json$/) do |json|
-  @response = MockenizeService.deleteMock(body)
+  @response = MockenizeService.deleteMock(json)
 end
 
 Then(/^response timeout should be (\d+)$/) do |timeout|
