@@ -34,4 +34,20 @@ class MockenizeService
   def self.deleteMock (body)
     HTTParty.delete($url + "/_mocks", :body => body, :headers => {"Content-Type" => "application/json"})
   end
+
+  def self.updateMock (body)
+    HTTParty.put($url + "/_mocks", :body => body, :headers => {"Content-Type" => "application/json"})
+  end
+
+  def self.createJavascript(scriptName, body)
+    HTTParty.post($url + "/_scripts/" + scriptName, :body => body, :headers => {"Content-Type" => "application/json"})
+  end
+
+  def self.deleteJavascript(scriptName, body)
+    HTTParty.delete($url + "/_scripts/" + scriptName, :body => body, :headers => {"Content-Type" => "application/json"})
+  end
+
+  def self.updateJavascript(scriptName, body)
+    HTTParty.put($url + "/_scripts/" + scriptName, :body => body, :headers => {"Content-Type" => "application/json"})
+  end
 end
