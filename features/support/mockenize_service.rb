@@ -50,4 +50,12 @@ class MockenizeService
   def self.updateJavascript(scriptName, body)
     HTTParty.put($url + "/_scripts/" + scriptName, :body => body, :headers => {"Content-Type" => "application/json"})
   end
+
+  def self.createProxy(body)
+    HTTParty.post($url + "/_proxies", :body => body, :headers => {"Content-Type" => "application/json"})
+  end
+
+  def self.updateProxy(body)
+    HTTParty.put($url + "/_proxies", :body => body, :headers => {"Content-Type" => "application/json"})
+  end
 end

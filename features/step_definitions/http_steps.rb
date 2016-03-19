@@ -3,10 +3,19 @@ Then(/^response status should be (\d+)$/) do |status|
 end
 
 Then(/^response body should be "([^"]*)"$/) do |body|
-  expect(body).to eq(@response.body)
+  expect(@response.body).to eq(body)
 end
 
-Then(/^response header should be contains a key "([^"]*)" and value "([^"]*)"$/) do |header_key, header_value|
+Then(/^response body should be$/) do |body|
+  expect(@response.body).to eq(body.to_s)
+end
+
+Then(/^response body should contains "([^"]*)"$/) do |value|
+  expect(@response.body).to include(value.to_s)
+end
+
+
+Then(/^response header should contains a key "([^"]*)" and value "([^"]*)"$/) do |header_key, header_value|
   expect(@response.headers[header_key]).to start_with(header_value)
 end
 
@@ -21,5 +30,11 @@ end
 When(/^invoke a "([^"]*)" in url "([^"]*)"$/) do |method, url|
   start = Time.now
   @response = MockenizeService.load(method, url, "")
+  @response_time = Time.now - start
+end
+
+When(/^invoke a "([^"]*)" in url "([^"]*)" with value$/) do |method, url, value|
+  start = Time.now
+  @response = MockenizeService.load(method, url, value)
   @response_time = Time.now - start
 end
