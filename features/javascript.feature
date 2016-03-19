@@ -10,7 +10,7 @@ Scenario Outline: Create and execute a mock with JavaScript
     return obj
   }
   """
-  Then response status should be 204
+  Then response status should be equal 204
 
   Given a mock with json
   """
@@ -21,14 +21,14 @@ Scenario Outline: Create and execute a mock with JavaScript
     "scriptName" : "js_test"
   }
   """
-  Then response status should be 201
+  Then response status should be equal 201
 
   When invoke a "<method>" in url "/test" with value
   """
   {"msg":"ok"}
   """
-  Then response status should be <status>
-  And response body should be
+  Then response status should be equal <status>
+  And response body should be equal
   """
   {"msg":"_ok"}
   """
@@ -52,14 +52,14 @@ Scenario Outline: Update and execute a mock with JavaScript
     return obj
   }
   """
-  Then response status should be 204
+  Then response status should be equal 204
 
 
   When invoke a "<method>" in url "/test" with value
   """
   {"msg":"ok"}
   """
-  And response body should be
+  And response body should be equal
   """
   {"msg":"_ok_update"}
   """

@@ -11,10 +11,10 @@ Scenario: Create a mock
     "body" : "OK"
   }
   """
-  Then response status should be 201
+  Then response status should be equal 201
 
   When invoke a "POST" in url "/test"
-  Then response status should be 202
+  Then response status should be equal 202
 
 Scenario Outline: Create a mock and verify status, header and response body
 
@@ -28,13 +28,13 @@ Scenario Outline: Create a mock and verify status, header and response body
     }
   }
   """
-  Then response body should contains "<url>"
-  Then response status should be 201
+  Then response body most contain "<url>"
+  Then response status should be equal 201
 
   When invoke a "<method>" in url "<url>"
-  Then response status should be <status>
-  And response body should be "<body>"
-  And response header should contains a key "<header_key>" and value "<header_value>"
+  Then response status should be equal <status>
+  And response body should be equal "<body>"
+  And response header must contain a "<header_key>" and value "<header_value>"
 
   Examples:
   | status | url    | body | header_key   | header_value | method |
@@ -75,13 +75,13 @@ Scenario: Get all mocks
     "body" : "OK"
   }
   """
-  Then response status should be 201
+  Then response status should be equal 201
 
   When invoke a "GET" in url "/_mocks"
-  Then response status should be 200
-  And response body should contains "/test1"
-  And response body should contains "/test2"
-  And response body should contains "/test3"
+  Then response status should be equal 200
+  And response body most contain "/test1"
+  And response body most contain "/test2"
+  And response body most contain "/test3"
 
 Scenario Outline: Update a mock
 
@@ -98,9 +98,9 @@ Scenario Outline: Update a mock
   }
   """
   When invoke a "<method>" in url "<url>"
-  Then response status should be <status>
-  And response body should be "<body>"
-  And response header should contains a key "<header_key>" and value "<header_value>"
+  Then response status should be equal <status>
+  And response body should be equal "<body>"
+  And response header must contain a "<header_key>" and value "<header_value>"
 
   When update an mock with json
   """
@@ -114,12 +114,12 @@ Scenario Outline: Update a mock
     }
   }
   """
-  Then response status should be 201
+  Then response status should be equal 201
 
   When invoke a "<method>" in url "<url2>"
-  Then response status should be <status2>
-  And response body should be "<body2>"
-  And response header should contains a key "<header_key>" and value "<header_value>"
+  Then response status should be equal <status2>
+  And response body should be equal "<body2>"
+  And response header must contain a "<header_key>" and value "<header_value>"
 
   Examples:
   | status | status2 | url    | url2   | body | body2 | header_key   | header_value | method |
@@ -144,7 +144,7 @@ Scenario Outline: Delete a mock
   }
   """
   When invoke a "<method>" in url "<url>"
-  Then response status should be 200
+  Then response status should be equal 200
 
   Given a mock with json
   """
@@ -156,7 +156,7 @@ Scenario Outline: Delete a mock
   }
   """
   When invoke a "<method>" in url "<url2>"
-  Then response status should be 200
+  Then response status should be equal 200
 
   When delete a mock with json
   """
@@ -167,13 +167,13 @@ Scenario Outline: Delete a mock
     }
   ]
   """
-  Then response status should be 204
+  Then response status should be equal 204
 
   When invoke a "<method>" in url "<url>"
-  Then response status should be 404
+  Then response status should be equal 404
 
   When invoke a "<method>" in url "<url2>"
-  Then response status should be 200
+  Then response status should be equal 200
 
   Examples:
   | url    | url2   | method |
@@ -187,7 +187,7 @@ Scenario: Delete empty multiple mocks
   """
   []
   """
-  Then response status should be 204
+  Then response status should be equal 204
 
 Scenario Outline: Delete multiple mocks
 
@@ -201,7 +201,7 @@ Scenario Outline: Delete multiple mocks
   }
   """
   When invoke a "<method>" in url "<url1>"
-  Then response status should be 202
+  Then response status should be equal 202
 
   Given a mock with json
   """
@@ -213,7 +213,7 @@ Scenario Outline: Delete multiple mocks
   }
   """
   When invoke a "<method>" in url "<url2>"
-  Then response status should be 202
+  Then response status should be equal 202
 
   Given a mock with json
   """
@@ -225,7 +225,7 @@ Scenario Outline: Delete multiple mocks
   }
   """
   When invoke a "<method>" in url "<url3>"
-  Then response status should be 202
+  Then response status should be equal 202
 
   When delete a mock with json
   """
@@ -240,16 +240,16 @@ Scenario Outline: Delete multiple mocks
     }
   ]
   """
-  Then response status should be 204
+  Then response status should be equal 204
 
   When invoke a "<method>" in url "<url1>"
-  Then response status should be 404
+  Then response status should be equal 404
 
   When invoke a "<method>" in url "<url2>"
-  Then response status should be 404
+  Then response status should be equal 404
 
   When invoke a "<method>" in url "<url3>"
-  Then response status should be 202
+  Then response status should be equal 202
 
   Examples:
   | url1    | url2   | url3   |  method  |
@@ -269,10 +269,10 @@ Scenario: Test response timeout
     "timeout" : 1
   }
   """
-  Then response status should be 201
+  Then response status should be equal 201
 
   When invoke a "POST" in url "/test"
-  Then response timeout should be 1
+  Then response timeout should be equal 1
 
 Scenario: Test response timeout interval
   Given a mock with json
@@ -286,7 +286,7 @@ Scenario: Test response timeout interval
     "maxTimeout" : 2
   }
   """
-  Then response status should be 201
+  Then response status should be equal 201
 
   When invoke a "POST" in url "/test"
   Then response timeout should be between 1 and 2

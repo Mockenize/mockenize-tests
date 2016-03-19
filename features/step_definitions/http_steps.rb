@@ -1,25 +1,25 @@
-Then(/^response status should be (\d+)$/) do |status|
+Then(/^response status should be equal (\d+)$/) do |status|
   expect(@response.code).to eq(status.to_i)
 end
 
-Then(/^response body should be "([^"]*)"$/) do |body|
+Then(/^response body should be equal "([^"]*)"$/) do |body|
   expect(@response.body).to eq(body)
 end
 
-Then(/^response body should be$/) do |body|
+Then(/^response body should be equal$/) do |body|
   expect(@response.body).to eq(body.to_s)
 end
 
-Then(/^response body should contains "([^"]*)"$/) do |value|
+Then(/^response body most contain "([^"]*)"$/) do |value|
   expect(@response.body).to include(value.to_s)
 end
 
 
-Then(/^response header should contains a key "([^"]*)" and value "([^"]*)"$/) do |header_key, header_value|
+Then(/^response header must contain a "([^"]*)" and value "([^"]*)"$/) do |header_key, header_value|
   expect(@response.headers[header_key]).to start_with(header_value)
 end
 
-Then(/^response timeout should be (\d+)$/) do |timeout|
+Then(/^response timeout should be equal (\d+)$/) do |timeout|
   expect(@response_time).to be >= timeout.to_f
 end
 

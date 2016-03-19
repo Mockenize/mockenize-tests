@@ -11,7 +11,7 @@ Scenario: Create a proxy
     "body" : "OK"
   }
   """
-  Then response status should be 201
+  Then response status should be equal 201
 
   Given a proxy with json
   """
@@ -21,11 +21,11 @@ Scenario: Create a proxy
     "url" : "http://maps.googleapis.com/maps/api/geocode/json?address=Brazil"
   }
   """
-  Then response status should be 201
+  Then response status should be equal 201
 
   When invoke a "GET" in url "/proxy"
-  Then response status should be 200
-  And response body should contains "Brazil"
+  Then response status should be equal 200
+  And response body most contain "Brazil"
 
 Scenario: Update a proxy
   GivenScenario Create a proxy
@@ -38,8 +38,8 @@ Scenario: Update a proxy
     "url" : "http://maps.googleapis.com/maps/api/geocode/json?address=SBO"
   }
   """
-  Then response status should be 201
+  Then response status should be equal 201
 
   When invoke a "GET" in url "/proxy"
-  Then response status should be 200
-  And response body should contains "SBO"
+  Then response status should be equal 200
+  And response body most contain "SBO"
