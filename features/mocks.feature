@@ -77,7 +77,7 @@ Scenario: Get all mocks
   """
   Then response status should be equal 201
 
-  When invoke a "GET" in url "/_mocks"
+  When invoke a "GET" in url "/_mockenize/mocks"
   Then response status should be equal 200
   And response body most contain "/test1"
   And response body most contain "/test2"

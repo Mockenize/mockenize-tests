@@ -121,6 +121,6 @@ Scenario: Get all JavaScripts
   """
   Then response status should be equal 204
 
-  When invoke a "GET" in url "/_scripts"
+  When invoke a "GET" in url "/_mockenize/scripts"
   Then response body most contain "js_test"
   And response body most contain "js_test2"

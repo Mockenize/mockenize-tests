@@ -28,34 +28,34 @@ class MockenizeService
   end
 
   def self.createMock (body)
-    HTTParty.post($url + "/_mocks", :body => body, :headers => {"Content-Type" => "application/json"})
+    HTTParty.post($url + "/_mockenize/mocks", :body => body, :headers => {"Content-Type" => "application/json"})
   end
 
   def self.deleteMock (body)
-    HTTParty.delete($url + "/_mocks", :body => body, :headers => {"Content-Type" => "application/json"})
+    HTTParty.delete($url + "/_mockenize/mocks", :body => body, :headers => {"Content-Type" => "application/json"})
   end
 
   def self.updateMock (body)
-    HTTParty.put($url + "/_mocks", :body => body, :headers => {"Content-Type" => "application/json"})
+    HTTParty.put($url + "/_mockenize/mocks", :body => body, :headers => {"Content-Type" => "application/json"})
   end
 
   def self.createJavascript(scriptName, body)
-    HTTParty.post($url + "/_scripts/" + scriptName, :body => body, :headers => {"Content-Type" => "application/json"})
+    HTTParty.post($url + "/_mockenize/scripts/" + scriptName, :body => body, :headers => {"Content-Type" => "application/json"})
   end
 
   def self.deleteJavascript(scriptName, body)
-    HTTParty.delete($url + "/_scripts/" + scriptName, :body => body, :headers => {"Content-Type" => "application/json"})
+    HTTParty.delete($url + "/_mockenize/scripts/" + scriptName, :body => body, :headers => {"Content-Type" => "application/json"})
   end
 
   def self.updateJavascript(scriptName, body)
-    HTTParty.put($url + "/_scripts/" + scriptName, :body => body, :headers => {"Content-Type" => "application/json"})
+    HTTParty.put($url + "/_mockenize/scripts/" + scriptName, :body => body, :headers => {"Content-Type" => "application/json"})
   end
 
   def self.createProxy(body)
-    HTTParty.post($url + "/_proxies", :body => body, :headers => {"Content-Type" => "application/json"})
+    HTTParty.post($url + "/_mockenize/proxies", :body => body, :headers => {"Content-Type" => "application/json"})
   end
 
   def self.updateProxy(body)
-    HTTParty.put($url + "/_proxies", :body => body, :headers => {"Content-Type" => "application/json"})
+    HTTParty.put($url + "/_mockenize/proxies", :body => body, :headers => {"Content-Type" => "application/json"})
   end
 end
