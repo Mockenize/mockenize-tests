@@ -24,7 +24,12 @@ Scenario Outline: Create a mock and verify status, header and response body
     "path" : "<url>",
     "method" : "<method>",
     "status" : <status>,
-    "body" : "<body>"
+    "body" : {
+        "msg" : "OK"
+      },
+    "headers": {
+      "Content-Type" : "application/json"
+    }
     }
   }
   """
@@ -33,19 +38,24 @@ Scenario Outline: Create a mock and verify status, header and response body
 
   When invoke a "<method>" in url "<url>"
   Then response status should be equal <status>
-  And response body should be equal "<body>"
+  And response body should be equal
+  """
+  {
+    "msg" : "OK"
+  }
+  """
   And response header must contain a "<header_key>" and value "<header_value>"
 
   Examples:
-  | status | url    | body | header_key   | header_value | method |
-  | 200    | /test  | OK   | Content-Type | text/plain   | POST   |
-  | 500    | /test  | Fail | Content-Type | text/plain   | POST   |
-  | 200    | /test  | OK   | Content-Type | text/plain   | GET    |
-  | 500    | /test  | Fail | Content-Type | text/plain   | GET    |
-  | 200    | /test  | OK   | Content-Type | text/plain   | DELETE |
-  | 500    | /test  | Fail | Content-Type | text/plain   | DELETE |
-  | 200    | /test  | OK   | Content-Type | text/plain   | PUT    |
-  | 500    | /test  | Fail | Content-Type | text/plain   | PUT    |
+  | status | url    | header_key   | header_value     | method |
+  | 200    | /test  | Content-Type | application/json | POST   |
+  | 500    | /test  | Content-Type | application/json | POST   |
+  | 200    | /test  | Content-Type | application/json | GET    |
+  | 500    | /test  | Content-Type | application/json | GET    |
+  | 200    | /test  | Content-Type | application/json | DELETE |
+  | 500    | /test  | Content-Type | application/json | DELETE |
+  | 200    | /test  | Content-Type | application/json | PUT    |
+  | 500    | /test  | Content-Type | application/json | PUT    |
 
 Scenario: Get all mocks
   Given a mock with json
