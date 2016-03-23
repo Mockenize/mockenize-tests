@@ -16,6 +16,29 @@ Scenario: Create a mock
   When invoke a "POST" in url "/test"
   Then response status should be equal 202
 
+  Scenario: Test multiple headers
+    Given a mock with json
+    """
+    {
+      "path" : "test",
+      "method" : "POST",
+      "status" : 202,
+      "body" : "OK",
+      "headers": {
+        "Content-Type" : "application/json",
+        "xgh": 1,
+        "Header-2": 2
+        }
+      }
+    }
+    """
+    Then response status should be equal 201
+
+    When invoke a "POST" in url "/test"
+    Then response header must contain a "Content-Type" and value "application/json"
+    And  response header must contain a "xgh" and value "1"
+    And  response header must contain a "Header-2" and value "2"
+@wip
 Scenario Outline: Create a mock and verify status, header and response body
 
   Given a mock with json
@@ -29,7 +52,7 @@ Scenario Outline: Create a mock and verify status, header and response body
       },
     "headers": {
       "Content-Type" : "application/json"
-    }
+      }
     }
   }
   """
@@ -170,12 +193,10 @@ Scenario Outline: Delete a mock
 
   When delete a mock with json
   """
-  [
-    {
+  {
       "path" : "<url>",
       "method" : "<method>"
-    }
-  ]
+  }
   """
   Then response status should be equal 204
 
@@ -193,11 +214,18 @@ Scenario Outline: Delete a mock
   | /test  | /test2 | DELETE |
 
 Scenario: Delete empty multiple mocks
-  When delete a mock with json
+  When delete all mocks with json
   """
   []
   """
   Then response status should be equal 204
+
+Scenario: Delete empty single mock
+  When delete a mock with json
+  """
+  {}
+  """
+  Then response status should be equal 500
 
 Scenario Outline: Delete multiple mocks
 
@@ -237,7 +265,7 @@ Scenario Outline: Delete multiple mocks
   When invoke a "<method>" in url "<url3>"
   Then response status should be equal 202
 
-  When delete a mock with json
+  When delete all mocks with json
   """
   [
     {

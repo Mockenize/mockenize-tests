@@ -35,6 +35,10 @@ class MockenizeService
     HTTParty.delete($url + "/_mockenize/mocks", :body => body, :headers => {"Content-Type" => "application/json"})
   end
 
+  def self.deleteAllMocks (body)
+    HTTParty.delete($url + "/_mockenize/mocks/all", :body => body, :headers => {"Content-Type" => "application/json"})
+  end
+
   def self.updateMock (body)
     HTTParty.put($url + "/_mockenize/mocks", :body => body, :headers => {"Content-Type" => "application/json"})
   end
