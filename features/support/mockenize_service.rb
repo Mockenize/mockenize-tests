@@ -1,4 +1,7 @@
+require 'rest-client'
+
 class MockenizeService
+
   def self.post (url, body)
     HTTParty.post($url + url, :body => body, :headers => {"Content-Type" => "application/json"})
   end
@@ -27,39 +30,7 @@ class MockenizeService
     end
   end
 
-  def self.createMock (body)
-    HTTParty.post($url + "/_mockenize/mocks", :body => body, :headers => {"Content-Type" => "application/json"})
-  end
-
-  def self.deleteMock (body)
-    HTTParty.delete($url + "/_mockenize/mocks", :body => body, :headers => {"Content-Type" => "application/json"})
-  end
-
-  def self.deleteAllMocks (body)
-    HTTParty.delete($url + "/_mockenize/mocks/all", :body => body, :headers => {"Content-Type" => "application/json"})
-  end
-
-  def self.updateMock (body)
-    HTTParty.put($url + "/_mockenize/mocks", :body => body, :headers => {"Content-Type" => "application/json"})
-  end
-
-  def self.createJavascript(scriptName, body)
-    HTTParty.post($url + "/_mockenize/scripts/" + scriptName, :body => body, :headers => {"Content-Type" => "application/json"})
-  end
-
-  def self.deleteJavascript(scriptName, body)
-    HTTParty.delete($url + "/_mockenize/scripts/" + scriptName, :body => body, :headers => {"Content-Type" => "application/json"})
-  end
-
-  def self.updateJavascript(scriptName, body)
-    HTTParty.put($url + "/_mockenize/scripts/" + scriptName, :body => body, :headers => {"Content-Type" => "application/json"})
-  end
-
-  def self.createProxy(body)
-    HTTParty.post($url + "/_mockenize/proxies", :body => body, :headers => {"Content-Type" => "application/json"})
-  end
-
-  def self.updateProxy(body)
-    HTTParty.put($url + "/_mockenize/proxies", :body => body, :headers => {"Content-Type" => "application/json"})
+  def self.uploadFile(file)
+     RestClient.post($url + '/_mockenize/file/upload', File.read(file), :content_type => 'application/octet-stream')
   end
 end
