@@ -198,7 +198,7 @@ Scenario Outline: Delete a mock
       "method" : "<method>"
   }
   """
-  Then response status should be equal 204
+  Then response status should be equal 200
 
   When invoke a "<method>" in url "<url>"
   Then response status should be equal 404
@@ -218,7 +218,7 @@ Scenario: Delete empty multiple mocks
   """
   []
   """
-  Then response status should be equal 204
+  Then response status should be equal 200
 
 Scenario: Delete empty single mock
   When delete a mock with json
@@ -226,6 +226,30 @@ Scenario: Delete empty single mock
   {}
   """
   Then response status should be equal 500
+
+Scenario Outline: Delete using key mock
+  Given a mock with json
+  """
+  {
+    "path" : "<url>",
+    "method" : "<method>",
+    "status" : 202,
+    "body" : "response"
+  }
+  """
+
+  When delete a mock using key
+  Then response status should be equal 200
+
+  When invoke a "<method>" in url "<url>"
+  Then response status should be equal 404
+
+  Examples:
+  | url    | method |
+  | /test  | POST   |
+  | /test  | PUT    |
+  | /test  | GET    |
+  | /test  | DELETE |
 
 Scenario Outline: Delete multiple mocks
 
@@ -278,7 +302,7 @@ Scenario Outline: Delete multiple mocks
     }
   ]
   """
-  Then response status should be equal 204
+  Then response status should be equal 200
 
   When invoke a "<method>" in url "<url1>"
   Then response status should be equal 404
