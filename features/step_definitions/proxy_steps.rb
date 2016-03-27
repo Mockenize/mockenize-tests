@@ -5,3 +5,7 @@ end
 When(/^update a proxy with json$/) do |json|
   @response = MockenizeService.put "/_mockenize/proxies", json
 end
+
+When(/^delete a proxy with json$/) do |json|
+  @response = MockenizeService.delete "/_mockenize/proxies", json
+end
