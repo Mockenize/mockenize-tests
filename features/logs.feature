@@ -33,3 +33,8 @@ Scenario: Finding a specific log
   And response body most contain "/log/tst"
   And response body most contain "key"
   And response body most contain "value"
+
+Scenario: Delete all logs
+
+  When delete all logs
+  Then response status should be equal 200

@@ -9,3 +9,7 @@ end
 When(/^delete a proxy with json$/) do |json|
   @response = MockenizeService.delete "/_mockenize/proxies", json
 end
+
+When(/^delete all proxies with json$/) do |json|
+  @response = MockenizeService.delete "/_mockenize/proxies/all", json
+end
