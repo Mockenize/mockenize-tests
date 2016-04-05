@@ -16,29 +16,69 @@ Scenario: Create a mock
   When invoke a "POST" in url "/test"
   Then response status should be equal 202
 
-  Scenario: Test multiple headers
-    Given a mock with json
-    """
-    {
-      "path" : "test",
-      "method" : "POST",
-      "status" : 202,
-      "body" : "OK",
-      "headers": {
-        "Content-Type" : "application/json",
-        "xgh": 1,
-        "Header-2": 2
-        }
+Scenario: Create a mock with multiple responses
+
+  Given a mock with json
+  """
+  {
+  	"path": "test",
+  	"method": "POST",    
+  	"values": [{
+  		"status": 201,
+  		"body": "response-1"
+  	}, {
+  		"status": 202,
+  		"body": "response-2"
+  	}, {
+  		"status": 203,
+  		"body": "response-3"
+  	}]
+  }
+  """
+  Then response status should be equal 201
+
+  When invoke a "POST" in url "/test"
+  Then response status should be equal 201
+  And response body should be equal "response-1"
+  And invoke a "POST" in url "/test"
+  And response status should be equal 202
+  And response body should be equal "response-2"
+  And invoke a "POST" in url "/test"
+  And response status should be equal 203
+  And response body should be equal "response-3"
+  And invoke a "POST" in url "/test"
+  And response status should be equal 201
+  And response body should be equal "response-1"
+  And invoke a "POST" in url "/test"
+  And response status should be equal 202
+  And response body should be equal "response-2"
+  And invoke a "POST" in url "/test"
+  And response status should be equal 203
+  And response body should be equal "response-3"
+
+Scenario: Test multiple headers
+  Given a mock with json
+  """
+  {
+    "path" : "test",
+    "method" : "POST",
+    "status" : 202,
+    "body" : "OK",
+    "headers": {
+      "Content-Type" : "application/json",
+      "xgh": 1,
+      "Header-2": 2
       }
     }
-    """
-    Then response status should be equal 201
+  }
+  """
+  Then response status should be equal 201
 
-    When invoke a "POST" in url "/test"
-    Then response header must contain a "Content-Type" and value "application/json"
-    And  response header must contain a "xgh" and value "1"
-    And  response header must contain a "Header-2" and value "2"
-@wip
+  When invoke a "POST" in url "/test"
+  Then response header must contain a "Content-Type" and value "application/json"
+  And  response header must contain a "xgh" and value "1"
+  And  response header must contain a "Header-2" and value "2"
+
 Scenario Outline: Create a mock and verify status, header and response body
 
   Given a mock with json
