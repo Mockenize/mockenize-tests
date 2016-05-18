@@ -2,20 +2,20 @@ require 'rest-client'
 
 class MockenizeService
 
-  def self.post (url, body)
-    HTTParty.post($url + url, :body => body, :headers => {"Content-Type" => "application/json"})
+  def self.post (url, body, content_type={"Content-Type" => "application/json"})
+    HTTParty.post($url + url, :body => body, :headers => content_type)
   end
 
-  def self.get (url, body)
-    HTTParty.get($url + url, :body => body, :headers => {"Content-Type" => "application/json"})
+  def self.get (url, body, content_type={"Content-Type" => "application/json"})
+    HTTParty.get($url + url, :body => body, :headers => content_type)
   end
 
-  def self.put (url, body)
-    HTTParty.put($url + url, :body => body, :headers => {"Content-Type" => "application/json"})
+  def self.put (url, body, content_type={"Content-Type" => "application/json"})
+    HTTParty.put($url + url, :body => body, :headers => content_type)
   end
 
-  def self.delete (url, body)
-    HTTParty.delete($url + url, :body => body, :headers => {"Content-Type" => "application/json"})
+  def self.delete (url, body, content_type={"Content-Type" => "application/json"})
+    HTTParty.delete($url + url, :body => body, :headers => content_type)
   end
 
   def self.load (method, url, body)

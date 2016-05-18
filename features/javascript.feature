@@ -18,7 +18,10 @@ Scenario Outline: Create and execute a mock with JavaScript
     "path" : "/test",
     "method" : "<method>",
     "status" : <status>,
-    "scriptName" : "js_test"
+    "scriptName" : "js_test",
+    "headers": {
+      "Content-Type" : "application/json"
+    }
   }
   """
   Then response status should be equal 201
@@ -30,7 +33,9 @@ Scenario Outline: Create and execute a mock with JavaScript
   Then response status should be equal <status>
   And response body should be equal
   """
-  {"msg":"_ok"}
+  {
+    "msg" : "_ok"
+  }
   """
 
   Examples:
@@ -59,7 +64,10 @@ Scenario Outline: Update and execute a mock with JavaScript
     "path" : "/test",
     "method" : "<method>",
     "status" : <status>,
-    "scriptName" : "js_test"
+    "scriptName" : "js_test",
+    "headers": {
+      "Content-Type" : "application/json"
+    }
   }
   """
   Then response status should be equal 201
@@ -71,7 +79,9 @@ Scenario Outline: Update and execute a mock with JavaScript
   Then response status should be equal <status>
   And response body should be equal
   """
-  {"msg":"_ok"}
+  {
+    "msg" : "_ok"
+  }
   """
   When update a JavaScript code with name "js_test" and source code
   """
@@ -89,7 +99,9 @@ Scenario Outline: Update and execute a mock with JavaScript
   """
   And response body should be equal
   """
-  {"msg":"_ok_update"}
+  {
+    "msg" : "_ok_update"
+  }
   """
 
   Examples:
