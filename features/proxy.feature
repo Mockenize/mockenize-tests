@@ -2,21 +2,10 @@
 Feature: Test proxy features
 
 Scenario: Create a proxy
-  Given a mock with json
-  """
-  {
-    "path" : "test",
-    "method" : "POST",
-    "status" : 202,
-    "body" : "OK"
-  }
-  """
-  Then response status should be equal 201
-
   Given a proxy with json
   """
   {
-    "name" : "_proxy",
+    "name" : "my_favorite_proxy",
     "path" : "/proxy",
     "url" : "http://maps.googleapis.com/maps/api/geocode/json?address=Brazil"
   }
@@ -28,21 +17,11 @@ Scenario: Create a proxy
   And response body most contain "Brazil"
 
 Scenario: Update a proxy
-  Given a mock with json
-  """
-  {
-    "path" : "test",
-    "method" : "POST",
-    "status" : 202,
-    "body" : "OK"
-  }
-  """
-  Then response status should be equal 201
 
   Given a proxy with json
   """
   {
-    "name" : "_proxy",
+    "name" : "my_favorite_proxy",
     "path" : "/proxy",
     "url" : "http://maps.googleapis.com/maps/api/geocode/json?address=Brazil"
   }
@@ -56,7 +35,7 @@ Scenario: Update a proxy
   When update a proxy with json
   """
   {
-    "name" : "_proxy",
+    "name" : "my_favorite_proxy",
     "path" : "/proxy",
     "url" : "http://maps.googleapis.com/maps/api/geocode/json?address=SBO"
   }
@@ -72,7 +51,7 @@ Scenario: Delete a proxy
   Given a proxy with json
   """
   {
-    "name" : "_proxy",
+    "name" : "my_favorite_proxy",
     "path" : "/proxy",
     "url" : "http://maps.googleapis.com/maps/api/geocode/json?address=Brazil"
   }
@@ -86,7 +65,7 @@ Scenario: Delete a proxy
   When delete a proxy with json
   """
   {
-    "name" : "_proxy",
+    "name" : "my_favorite_proxy",
     "path" : "/proxy"
   }
   """
@@ -108,7 +87,7 @@ Scenario: Delete multiple proxies
   Given a proxy with json
   """
   {
-    "name" : "_proxy",
+    "name" : "my_favorite_proxy",
     "path" : "/proxy",
     "url" : "http://maps.googleapis.com/maps/api/geocode/json?address=Brazil"
   }
@@ -118,7 +97,7 @@ Scenario: Delete multiple proxies
   Given a proxy with json
   """
   {
-    "name" : "_proxy2",
+    "name" : "my_favorite_proxy2",
     "path" : "/proxy2",
     "url" : "http://maps.googleapis.com/maps/api/geocode/json?address=Brazil"
   }
@@ -128,7 +107,7 @@ Scenario: Delete multiple proxies
   When delete all proxies with json
   """
   [{
-    "name" : "_proxy",
+    "name" : "my_favorite_proxy",
     "path" : "/proxy",
     "url" : "http://maps.googleapis.com/maps/api/geocode/json?address=Brazil"
   }]
